@@ -1,0 +1,70 @@
+[
+  {
+    "match": {
+      "type": "session_start"
+    },
+    "hooks": [
+      {
+        "type": "command",
+        "command": "python3 {plugin}/hooks/session_start.py"
+      }
+    ]
+  },
+  {
+    "match": {
+      "type": "pre_compact"
+    },
+    "hooks": [
+      {
+        "type": "command",
+        "command": "python3 {plugin}/hooks/pre_compact.py"
+      }
+    ]
+  },
+  {
+    "match": {
+      "type": "post_compact_restore"
+    },
+    "hooks": [
+      {
+        "type": "command",
+        "command": "python3 {plugin}/hooks/post_compact_restore.py"
+      }
+    ]
+  },
+  {
+    "match": {
+      "type": "post_tool_use",
+      "tool": "write"
+    },
+    "hooks": [
+      {
+        "type": "command",
+        "command": "python3 {plugin}/hooks/file_checker.py"
+      }
+    ]
+  },
+  {
+    "match": {
+      "type": "post_tool_use",
+      "tool": "edit"
+    },
+    "hooks": [
+      {
+        "type": "command",
+        "command": "python3 {plugin}/hooks/file_checker.py"
+      }
+    ]
+  },
+  {
+    "match": {
+      "type": "stop"
+    },
+    "hooks": [
+      {
+        "type": "command",
+        "command": "python3 {plugin}/hooks/session_end.py"
+      }
+    ]
+  }
+]

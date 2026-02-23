@@ -1,0 +1,13 @@
+{
+  "name": "betapilot",
+  "version": "1.0.0",
+  "description": "BetaPilot - Spec-driven development with slash commands, session memory, and auto-compaction handling",
+  "author": {
+    "name": "BetaPilot Contributors"
+  },
+  "homepage": "https://github.com/cuku/betapilot",
+  "commands": "./commands/",
+  "rules": "./rules/",
+  "hooks": "./hooks/hooks.json",
+  "skills": "./skills/"
+}
