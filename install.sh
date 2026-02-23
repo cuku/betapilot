@@ -15,9 +15,6 @@ fi
 NPM_PREFIX=$(npm config get prefix)
 NPM_BIN="${NPM_PREFIX}/bin"
 
-# Add to PATH for this session
-export PATH="${NPM_BIN}:$PATH"
-
 # Create temp dir
 TMPDIR=$(mktemp -d)
 cd "$TMPDIR"
@@ -43,12 +40,30 @@ echo ""
 echo "BetaPilot installed successfully!"
 echo ""
 
+# Add to PATH if not already
+SHELL_RC=""
+if [ -f "$HOME/.zshrc" ]; then
+  SHELL_RC="$HOME/.zshrc"
+elif [ -f "$HOME/.bashrc" ]; then
+  SHELL_RC="$HOME/.bashrc"
+fi
+
+if [ -n "$SHELL_RC" ]; then
+  if ! grep -q "NPM_BIN\|homebrew/bin" "$SHELL_RC" 2>/dev/null; then
+    echo "" >> "$SHELL_RC"
+    echo "# BetaPilot" >> "$SHELL_RC"
+    echo "export PATH=\"${NPM_BIN}:\$PATH\"" >> "$SHELL_RC"
+    echo "Added ${NPM_BIN} to your PATH in ${SHELL_RC}"
+    echo "Please restart your terminal or run: source ${SHELL_RC}"
+  fi
+fi
+
 # Try to run pilot
+export PATH="${NPM_BIN}:$PATH"
 if command -v pilot &> /dev/null; then
-  pilot --version 2>/dev/null || pilot help
+  pilot help
 else
-  echo "To use pilot, add the following to your PATH:"
-  echo "  export PATH=\"${NPM_BIN}:\$PATH\""
   echo ""
-  echo "Add this line to your ~/.zshrc or ~/.bashrc"
+  echo "To use pilot, run:"
+  echo "  export PATH=\"${NPM_BIN}:\$PATH\""
 fi
