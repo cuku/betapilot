@@ -24,7 +24,7 @@ BetaPilot helps developers and teams manage their development workflow through a
 ### Quick Install (macOS/Linux)
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/cuku/betapilot/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/cuku/betapilot/b683a7d/install.sh | bash
 ```
 
 Or manually:
