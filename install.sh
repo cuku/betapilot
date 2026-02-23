@@ -12,9 +12,27 @@ if ! command -v npm &> /dev/null; then
   exit 1
 fi
 
-echo "Installing BetaPilot from GitHub..."
-npm install -g github:cuku/betapilot
+# Create temp dir
+TMPDIR=$(mktemp -d)
+cd "$TMPDIR"
+
+# Clone the repo
+echo "Cloning BetaPilot..."
+git clone https://github.com/cuku/betapilot.git
+cd betapilot
+
+# Install dependencies and build
+echo "Building BetaPilot..."
+npm install
+npm run build
+
+# Link globally
+echo "Linking BetaPilot..."
+npm link
+
+cd /
+rm -rf "$TMPDIR"
 
 echo ""
 echo "BetaPilot installed successfully!"
-pilot --version 2>/dev/null || echo "Run 'pilot --help' to get started"
+pilot --version 2>/dev/null || pilot help
