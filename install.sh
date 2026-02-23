@@ -1,5 +1,7 @@
 #!/bin/bash
 # BetaPilot installer
+# Installs BetaPilot CLI and optionally the Claude Code plugin
+
 set -e
 
 echo "Installing BetaPilot..."
@@ -32,6 +34,15 @@ npm run build
 # Link globally
 echo "Linking BetaPilot..."
 npm link
+
+# Install Claude Code plugin
+echo ""
+read -p "Install Claude Code plugin? (y/n) " -n 1 -r
+echo
+if [[ $REPLY =~ ^[Yy]$ ]]; then
+  echo "Installing Claude Code plugin..."
+  bash plugin/installer.sh
+fi
 
 cd /
 rm -rf "$TMPDIR"
