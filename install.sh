@@ -1,4 +1,5 @@
 #!/bin/bash
+# BetaPilot installer
 set -e
 
 INSTALL_DIR="${HOME}/.local/bin"
